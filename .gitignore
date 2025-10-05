@@ -1,0 +1,19 @@
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Environments
+.env
+.venv/
+
+# Notebooks
+*.ipynb_checkpoints
+
+# Logs
+*.log
+
+# Project artifacts
+models/
+reports/
