@@ -1,5 +1,6 @@
 # F5ProjectVI_ProblemaDeClasificacion
 [gestión del proyecto](https://anthonycpcode.atlassian.net/jira/software/projects/AIR/code?atlOrigin=eyJpIjoiYjlhOTA5ZGNkZmUyNDVmZjk1MDFhMDNkNDJmNTM3NTYiLCJwIjoiaiJ9)
+
 [Airline Passenger Satisfaction dataset in Kaggle](https://www.kaggle.com/datasets/teejmahal20/airline-passenger-satisfaction/data)
 
 ## Resumen
@@ -45,7 +46,7 @@ docker build -t airline-satisfaction .
 docker run --rm -v ${PWD}\models:/app/models -v ${PWD}\reports:/app/reports airline-satisfaction
 ```
 
-El montaje de volúmenes es opcional pero recomendable para conservar `models/` y `reports/` en el host. Crea las carpetas si aún no existen:
+El montaje de volúmenes es opcional pero recomendable para conservar el pipeline con el modelo en `models/` y las métricas en `reports/` en el host. Crea las carpetas si aún no existen:
 
 ```powershell
 New-Item -ItemType Directory -Force models
