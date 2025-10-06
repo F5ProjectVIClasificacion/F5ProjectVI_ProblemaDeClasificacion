@@ -31,7 +31,15 @@ TARGET_COLUMN = "satisfaction"
 DROP_COLUMNS = ["Unnamed: 0", "id"]# "Unnamed: 0" and "id" are common artifacts: the former often appears when a CSV file has its index saved as a column, and the latter is typically just a unique identifier that carries no predictive value. Dropping them helps ensure models learn from meaningful features rather than redundant or non-informative columns
 CATEGORICAL_MAPPINGS = {
     TARGET_COLUMN: {"satisfied": 1, "neutral or dissatisfied": 0},
-}#CATEGORICAL_MAPPINGS is dict[str, dict[str, int]] transforms the target column into a binary representation suitable for scikit-learn estimators that expect numeric targets.
+}
+
+# #TODO Equipo, revisar si esta bien (modified by KIRU) 
+# --- INICIO DE ADAPTACIÓN ---
+# Mapeo inverso para interpretar las predicciones numéricas del modelo
+INV_CATEGORICAL_MAPPINGS = {v: k for k, v in CATEGORICAL_MAPPINGS[TARGET_COLUMN].items()}
+# --- FIN DE ADAPTACIÓN ---
+
+#CATEGORICAL_MAPPINGS is dict[str, dict[str, int]] transforms the target column into a binary representation suitable for scikit-learn estimators that expect numeric targets.
 PROJECT_ROOT = Path.cwd().resolve()
 if not (PROJECT_ROOT / "datasets").exists():#if this notebook is not run from the project root, move up one level
     PROJECT_ROOT = PROJECT_ROOT.parent
@@ -39,6 +47,41 @@ DATA_PATH = PROJECT_ROOT / "datasets/train.csv"
 MODEL_PATH = PROJECT_ROOT / "models/satisfaction_model.joblib"
 METRICS_PATH = PROJECT_ROOT / "reports/metrics.json"
 TEST_SIZE = 0.2
+
+# #TODO Equipo, revisar si esta bien (modified by KIRU) 
+# ==============================================================================
+# FUNCIONES PARA EL FRONTEND (NUEVAS)
+# ==============================================================================
+
+def load_model(model_path: Path = MODEL_PATH) -> Pipeline:
+    """
+    Carga el pipeline de modelo entrenado desde el disco.
+    Esta es la función que usará el frontend.
+    """
+    if not model_path.exists():
+        raise FileNotFoundError(f"El archivo del modelo no se encontró en {model_path}. Por favor, entrena el modelo primero ejecutando: python src/train_model.py")
+    
+    pipeline = joblib.load(model_path)
+    return pipeline
+
+def make_prediction(pipeline: Pipeline, input_df: pd.DataFrame) -> list[str]:
+    """
+    Realiza una predicción usando el pipeline cargado.
+    Devuelve la etiqueta de texto ('satisfied' o 'neutral or dissatisfied').
+    """
+    # El pipeline se encarga de todo el preprocesamiento y la predicción numérica.
+    prediction_numeric = pipeline.predict(input_df)
+    
+    # Se traduce la predicción numérica (0 o 1) a su etiqueta de texto correspondiente.
+    prediction_text = [INV_CATEGORICAL_MAPPINGS[pred] for pred in prediction_numeric]
+    
+    return prediction_text
+
+
+# ==============================================================================
+# LÓGICA DE ENTRENAMIENTO (EXISTENTE - SIN CAMBIOS)
+# ==============================================================================
+#TODO hasta aqui
 
 def load_data(csv_path: Path) -> pd.DataFrame:
     """Load dataset and perform initial cleaning."""

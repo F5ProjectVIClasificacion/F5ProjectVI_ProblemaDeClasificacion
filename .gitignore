@@ -7,9 +7,28 @@ __pycache__/
 # Environments
 .env
 .venv/
+env/
+venv/
+ENV/
 
 # Notebooks
 *.ipynb_checkpoints
+
+# IDE / Editor specific files
+.idea/
+.vscode/
+
+# OS-specific files
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
 
 # Logs
 *.log
@@ -17,3 +36,4 @@ __pycache__/
 # Project artifacts
 models/
 reports/
+*.pkl
