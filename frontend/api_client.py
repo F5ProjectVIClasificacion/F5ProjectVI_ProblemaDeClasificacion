@@ -6,12 +6,20 @@ import requests
 import streamlit as st
 from typing import Dict, Any, Optional
 import json
+import os
+
+print(f"DEBUG INICIAL: Archivo .env existe = {os.path.exists('.env')}")
+print(f"DEBUG INICIAL: Variables de entorno actuales = {dict(os.environ)}")
+
 
 class APIClient:
     """Cliente para interactuar con la API de FastAPI"""
     
-    def __init__(self, base_url: str = "http://localhost:8000"):
-        self.base_url = base_url.rstrip('/')
+    def __init__(self, base_url: str = None):
+        if base_url is None:
+            self.base_url = os.getenv("API_BASE_URL", "http://localhost:8000")
+        else:
+            self.base_url = base_url.rstrip('/')
     
     def health_check(self) -> bool:
         """Verificar si la API está funcionando"""
@@ -61,8 +69,10 @@ class APIClient:
 @st.cache_resource
 def get_api_client():
     """Obtener instancia del cliente API (con cache)"""
+    print(f"DEBUG get_api_client: API_BASE_URL = {os.getenv('API_BASE_URL', 'NOT_FOUND')}")
+    print(f"DEBUG get_api_client: Todas las variables = {os.environ}")
     return APIClient()
-
+    
 def check_api_connection():
     """Verificar conexión con la API y mostrar estado"""
     client = get_api_client()
@@ -71,6 +81,7 @@ def check_api_connection():
         st.success("✅ API conectada correctamente")
         return True
     else:
-        st.error("❌ No se puede conectar con la API. Asegúrate de que el backend esté ejecutándose en http://localhost:8000")
+        st.error(f"❌ No se puede conectar con la API. Asegúrate de que el backend esté ejecutándose en {os.getenv('API_BASE_URL', 'http://localhost:8000')}")
         st.info("💡 Para iniciar el backend, ejecuta: `uvicorn backend.main:app --reload`")
         return False
+

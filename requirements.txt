@@ -8,9 +8,10 @@ streamlit==1.38.0
 matplotlib==3.9.0
 seaborn==0.13.2
 
-# FastAPI y dependencias para el backend
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
-pydantic==2.5.0
-python-multipart==0.0.6
+# --- DEPENDENCIAS DEL BACKEND ACTUALIZADAS ---
+# Versiones más modernas compatibles con Python 3.13
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
+pydantic>=2.7.0
+python-multipart==0.0.9
 requests==2.31.0

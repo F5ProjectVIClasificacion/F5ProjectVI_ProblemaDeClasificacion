@@ -21,7 +21,7 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: frontend/Dockerfile
     ports:
       - "8501:8501"
     volumes:
@@ -30,6 +30,8 @@ services:
       - ./datasets:/app/datasets
       - ./models:/app/models
       - ./reports:/app/reports
+    env_file:
+      - frontend/.env
     environment:
       - PYTHONPATH=/app
     command: streamlit run frontend/app.py --server.port 8501 --server.address 0.0.0.0
