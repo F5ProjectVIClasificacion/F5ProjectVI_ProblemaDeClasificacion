@@ -8,9 +8,6 @@ from typing import Dict, Any, Optional
 import json
 import os
 
-print(f"DEBUG INICIAL: Archivo .env existe = {os.path.exists('.env')}")
-print(f"DEBUG INICIAL: Variables de entorno actuales = {dict(os.environ)}")
-
 
 class APIClient:
     """Cliente para interactuar con la API de FastAPI"""
@@ -69,10 +66,8 @@ class APIClient:
 @st.cache_resource
 def get_api_client():
     """Obtener instancia del cliente API (con cache)"""
-    print(f"DEBUG get_api_client: API_BASE_URL = {os.getenv('API_BASE_URL', 'NOT_FOUND')}")
-    print(f"DEBUG get_api_client: Todas las variables = {os.environ}")
     return APIClient()
-    
+
 def check_api_connection():
     """Verificar conexión con la API y mostrar estado"""
     client = get_api_client()

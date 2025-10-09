@@ -2,8 +2,6 @@ import streamlit as st
 from api_client import get_api_client, check_api_connection
 import os
 
-print(f"DEBUG página predicción: API_BASE_URL = {os.getenv('API_BASE_URL', 'NOT_FOUND')}")
-
 # --- Configuración de la Página ---
 st.set_page_config(page_title="Página de Predicción", page_icon="🔮", layout="wide")
 st.title("🔮 Predicción de Satisfacción del Pasajero")

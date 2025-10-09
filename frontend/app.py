@@ -169,7 +169,3 @@ if stats:
                  help="Puntos porcentuales de diferencia")
 
 show_dashboard_charts(df_sample)
-
-
-#TODO eda, histogramas, inputs user, botones para esas pags, dockerfile, env dentro del front
-#TODO que el front tambien pueda predecir con los inputs que le demos

@@ -5,7 +5,191 @@
 
 ## Resumen
 
-Este proyecto entrena un modelo de clasificación supervisada que predice la satisfacción de los pasajeros de una aerolínea (satisfecho vs. neutral o insatisfecho) utilizando un dataset público de Kaggle. El flujo de trabajo limpia los datos, codifica las variables categóricas y ajusta un pipeline de random forest balanceado que supera el 96 % de exactitud en la partición de entrenamiento.
+Este proyecto entrena un modelo de clasificación supervisada que predice la satisfacción de los pasajeros de una aerolínea (satisfecho vs. neutral o insatisfecho) utilizando un dataset público de Kaggle. El flujo de trabajo limpia los datos, codifica las variables categóricas y ajusta un pipeline de random forest balanceado que supera el 96 % de exactitud en la partición de entrenamiento.
+
+## ✨ Características Principales
+
+🚀 **Aplicación Web Completa**: Interfaz intuitiva desarrollada con Streamlit para predicciones en tiempo real
+🔮 **Predicciones Instantáneas**: Modelo ML integrado con >96% precisión para predecir satisfacción de pasajeros
+📊 **Análisis Visual**: Dashboard completo con métricas y gráficos del dataset
+🐳 **Despliegue Docker**: Configuración completa frontend-backend con Docker Compose
+⚡ **API RESTful**: Backend FastAPI para integración y escalabilidad
+
+## 🎯 Funcionalidades de la Aplicación
+
+### 📊 **Página Principal**
+- Métricas rápidas del dataset (103,904 pasajeros analizados)
+- Comparación de satisfacción por clase (Business vs Economy)
+- Estadísticas de clientes leales y edad promedio
+- Navegación directa a funcionalidades específicas
+
+### 📈 **Página de Análisis de Datos**
+- Análisis exploratorio completo (EDA)
+- Visualizaciones detalladas con gráficos profesionales
+- Métricas empresariales relevantes
+- Información contextual para toma de decisiones
+
+### 🔮 **Página de Predicción**
+- Formulario completo con todos los parámetros del pasajero
+- Predicciones en tiempo real con el modelo entrenado
+- Probabilidad de satisfacción y nivel de confianza
+- Resultados formateados profesionalmente
+
+## 🚀 Inicio Rápido con Docker (Recomendado)
+
+### **Opción 1: Usar Docker Compose (Más Fácil)**
+```bash
+# Construir e iniciar todos los servicios
+cd /ruta/al/proyecto
+docker-compose up
+
+# Acceder a la aplicación:
+# Frontend (Interfaz web): http://localhost:8501
+# Backend (API): http://localhost:8000
+```
+
+### **Opción 2: Docker Individual**
+```bash
+# Construir imágenes
+docker build -f backend/Dockerfile -t airline-backend .
+docker build -f frontend/Dockerfile -t airline-frontend .
+
+# Ejecutar servicios
+docker run -p 8000:8000 airline-backend
+docker run -p 8501:8501 airline-frontend
+```
+
+## 📋 Arquitectura del Proyecto
+
+```
+F5ProjectVI_ProblemaDeClasificacion/
+├── 📁 frontend/                 # Aplicación web Streamlit
+│   ├── app.py                  # Página principal
+│   ├── pages/                  # Páginas adicionales
+│   │   ├── 1_AnalisisDatos.py  # Análisis exploratorio
+│   │   └── 2_Prediccion.py     # Formulario de predicción
+│   ├── api_client.py           # Cliente API para backend
+│   ├── Dockerfile              # Configuración contenedor
+│   └── .env                    # Variables de entorno
+├── 📁 backend/                  # API FastAPI
+├── 📁 datasets/                 # Datos de entrenamiento
+├── 📁 models/                   # Modelos entrenados
+├── 📁 reports/                  # Métricas y reportes
+└── 📁 src/                      # Scripts de entrenamiento
+```
+
+## 💻 Desarrollo Local
+
+### **Configuración del Entorno**
+```bash
+# Crear entorno virtual
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# o
+venv\Scripts\activate     # Windows
+
+# Instalar dependencias
+pip install -r requirements.txt
+```
+
+### **Entrenar el Modelo**
+```bash
+python src/train_model.py
+```
+
+### **Ejecutar Servicios Individualmente**
+```bash
+# Backend API
+uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
+
+# Frontend Web (nueva terminal)
+streamlit run frontend/app.py --server.port 8501 --server.address 0.0.0.0
+```
+
+## 📊 Métricas del Modelo
+
+La configuración predeterminada reporta las siguientes métricas sobre el conjunto de validación:
+
+| Métrica     | Puntaje |
+|-------------|---------|
+| Exactitud   | 0.9635 |
+| Precisión   | 0.9697 |
+| Recall      | 0.9454 |
+| F1-score    | 0.9574 |
+| ROC AUC     | 0.9943 |
+
+## 🔧 Variables de Entorno
+
+### **Frontend (.env)**
+```env
+# URL del backend para conexión Docker
+API_BASE_URL=http://backend:8000
+```
+
+### **Backend (opcional)**
+```env
+# Configuración de la API
+API_HOST=0.0.0.0
+API_PORT=8000
+MODEL_PATH=models/satisfaction_model.joblib
+```
+
+## 📁 Archivos Generados
+
+### **Modelos**
+- `models/satisfaction_model.joblib`: Pipeline completo serializado
+
+### **Reportes**
+- `reports/metrics.json`: Métricas detalladas del modelo
+- `reports/classification_report.txt`: Reporte de clasificación completo
+- `reports/confusion_matrix.png`: Matriz de confusión visual
+
+## 🎨 Tecnologías Utilizadas
+
+### **Backend**
+- **FastAPI**: Framework web rápido y moderno
+- **Scikit-learn**: Librería de machine learning
+- **Pandas**: Manipulación y análisis de datos
+- **Joblib**: Serialización de modelos
+
+### **Frontend**
+- **Streamlit**: Framework para aplicaciones web de datos
+- **Plotly/Matplotlib**: Visualizaciones interactivas
+- **Requests**: Cliente HTTP para API
+
+### **DevOps**
+- **Docker**: Containerización de aplicaciones
+- **Docker Compose**: Orquestación de servicios
+
+## 🔄 Flujo de Trabajo Completo
+
+1. **📥 Carga de Datos**: Dataset de 103,904 pasajeros desde Kaggle
+2. **🧹 Preprocesamiento**: Limpieza, codificación y preparación de datos
+3. **🤖 Entrenamiento**: Modelo Random Forest optimizado
+4. **📊 Evaluación**: Métricas superiores al 96% de precisión
+5. **🌐 Despliegue**: Aplicación web completa con Docker
+6. **🔮 Predicciones**: Interface para predicciones en tiempo real
+
+## 🎯 Próximos Pasos Sugeridos
+
+- ✅ **Completado**: Interfaz web completa con Streamlit
+- ✅ **Completado**: Integración Docker frontend-backend
+- ✅ **Completado**: Sistema de navegación multipágina
+- 🔄 **Próximo**: Validación en conjunto de prueba separado
+- 🔄 **Próximo**: Sistema de monitoreo para producción
+- 🔄 **Próximo**: Tests automatizados para CI/CD
+
+## 📚 Documentación Adicional
+
+- [Guía Backend Completa](GUIA_BACKEND_COMPLETA.md)
+- [Guía de Implementación Backend](GUIA_IMPLEMENTACION_BACKEND.md)
+- [Guía Frontend](GUIA_FRONTEND.md)
+
+---
+
+## 🏆 Estado del Proyecto: **COMPLETO Y FUNCIONAL** 🎉
+
+**Aplicación 100% operativa con todas las funcionalidades implementadas y documentadas.**
 
 ## Columnas del conjunto de datos
 
