@@ -163,17 +163,32 @@ if st.button('Predecir Satisfacción', type="primary", use_container_width=True)
     # después de que prediction_result tenga un valor.
     if prediction_result:
         prediction = prediction_result.get('prediction')
-        probability = prediction_result.get('probability')
+        satisfaction_probability = prediction_result.get('satisfaction_probability')
+        neutral_probability = prediction_result.get('neutral_probability')
         confidence = prediction_result.get('confidence_level')
 
         if prediction == 'satisfied':
             st.success('El pasajero estará **satisfecho** 😊')
         else:
             st.warning('El pasajero estará **insatisfecho o neutral** 😐')
-        
+
         # Usamos columnas para mostrar las métricas
         mcol1, mcol2 = st.columns(2)
-        mcol1.metric(label="Probabilidad de Satisfacción", value=f"{probability:.2%}")
-        mcol2.metric(label="Nivel de Confianza", value=str(confidence).capitalize())
+
+        # Mostrar probabilidad de satisfacción
+        if satisfaction_probability is not None:
+            prob_text = f"{satisfaction_probability:.2%}"
+        else:
+            prob_text = "No disponible"
+
+        mcol1.metric(label="Probabilidad de Satisfacción", value=prob_text)
+
+        # Manejar caso cuando confidence es None
+        if confidence is not None:
+            conf_text = str(confidence).capitalize()
+        else:
+            conf_text = "No disponible"
+
+        mcol2.metric(label="Nivel de Confianza", value=conf_text)
     else:
         st.error("No se pudo obtener una predicción. Revisa los mensajes de error.")
