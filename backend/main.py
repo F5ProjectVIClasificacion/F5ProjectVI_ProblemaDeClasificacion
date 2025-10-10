@@ -58,7 +58,7 @@ async def load_model_on_startup():
         print("✅ Modelo cargado exitosamente")
 
     except Exception as e:
-        print(f"❌ Error cargando el modelo: {e}")
+        print(f"❌ Error cargando el modelo: debes entrenar el modelo primero. Ejecuta 'docker compose --profile training up train-model' y luego 'docker compose up --build'{e}")
         raise e
 
 
