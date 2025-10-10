@@ -102,6 +102,10 @@ class PassengerData(BaseModel):
         description="Retraso en llegada (minutos)",
     )
 
+    '''This inner Config class tunes the Pydantic model so FastAPI can populate
+    fields either by their Python attribute names or by aliases (populate_by_name = True),
+    and it injects a realistic sample payload into the OpenAPI schema via json_schema_extra["example"],
+    giving API clients a concrete blueprint of the expected flight-survey fields and value shapes.'''
     class Config:
         populate_by_name = True
         json_schema_extra = {
