@@ -21,13 +21,13 @@ col1, col2, col3 = st.columns(3)
 with col1:
     st.subheader("Datos Personales")
     gender = st.selectbox('Género', ('Female', 'Male'))
-    customer_type = st.selectbox('Tipo de Cliente', ('Loyal Customer', 'disloyal Customer'))
+    customer_type = st.selectbox('Tipo de Cliente', ('Loyal Customer', 'disloyal Customer'), index=0)
     age = st.slider('Edad', 1, 100, 40)
 
 with col2:
     st.subheader("Detalles del Vuelo")
-    type_of_travel = st.selectbox('Tipo de Viaje', ('Business travel', 'Personal Travel'))
-    flight_class = st.selectbox('Clase de Vuelo', ('Business', 'Eco', 'Eco Plus'), key='flight_class')
+    type_of_travel = st.selectbox('Tipo de Viaje', ('Business travel', 'Personal Travel'), index=0)
+    flight_class = st.selectbox('Clase de Vuelo', ('Business', 'Eco', 'Eco Plus'), key='flight_class', index=0)
     flight_distance = st.slider('Distancia de Vuelo (km)', 0, 5000, 1200)
 
 with col3:
@@ -41,23 +41,23 @@ st.header("Calificaciones del Servicio (0-5)")
 # Columnas para las calificaciones
 c1, c2, c3, c4 = st.columns(4)
 with c1:
-    inflight_wifi_service = st.slider('Wifi a bordo', 0, 5, 3)
-    departure_arrival_time_convenient = st.slider('Horario Salida/Llegada', 0, 5, 3)
-    ease_of_online_booking = st.slider('Reserva Online', 0, 5, 3)
-    gate_location = st.slider('Ubicación Puerta', 0, 5, 3)
+    inflight_wifi_service = st.slider('Wifi a bordo', 0, 5, 4)
+    departure_arrival_time_convenient = st.slider('Horario Salida/Llegada', 0, 5, 4)
+    ease_of_online_booking = st.slider('Reserva Online', 0, 5, 4)
+    gate_location = st.slider('Ubicación Puerta', 0, 5, 4)
 with c2:
-    food_and_drink = st.slider('Comida y Bebida', 0, 5, 3)
-    online_boarding = st.slider('Embarque Online', 0, 5, 3)
-    seat_comfort = st.slider('Comodidad Asiento', 0, 5, 3)
-    inflight_entertainment = st.slider('Entretenimiento', 0, 5, 3)
+    food_and_drink = st.slider('Comida y Bebida', 0, 5, 4)
+    online_boarding = st.slider('Embarque Online', 0, 5, 4)
+    seat_comfort = st.slider('Comodidad Asiento', 0, 5, 5)
+    inflight_entertainment = st.slider('Entretenimiento', 0, 5, 4)
 with c3:
-    on_board_service = st.slider('Servicio a bordo', 0, 5, 3)
-    leg_room_service = st.slider('Espacio Piernas', 0, 5, 3)
-    baggage_handling = st.slider('Manejo Equipaje', 0, 5, 3)
-    checkin_service = st.slider('Servicio Check-in', 0, 5, 3)
+    on_board_service = st.slider('Servicio a bordo', 0, 5, 5)
+    leg_room_service = st.slider('Espacio Piernas', 0, 5, 4)
+    baggage_handling = st.slider('Manejo Equipaje', 0, 5, 4)
+    checkin_service = st.slider('Servicio Check-in', 0, 5, 4)
 with c4:
-    inflight_service = st.slider('Servicio en Vuelo', 0, 5, 3)
-    cleanliness = st.slider('Limpieza', 0, 5, 3)
+    inflight_service = st.slider('Servicio en Vuelo', 0, 5, 5)
+    cleanliness = st.slider('Limpieza', 0, 5, 5)
 
 
 # ALTERNATIVA CON st.expander (borrar el if False y tabular hacia atras)
