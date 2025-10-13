@@ -91,7 +91,7 @@ La configuración del modelo reporta las siguientes métricas sobre el conjunto 
 - `models/satisfaction_model.joblib`: Pipeline completo serializado
 
 ### **Reportes**
-- `reports/metrics.json`: métricas de clasificación detalladas y matriz de confusión
+- `reports/metrics.json`: Métricas de clasificación detalladas y matriz de confusión
 - `reports/classification_report.txt`: Reporte de clasificación completo
 
 ## 🎨 Tecnologías Utilizadas
