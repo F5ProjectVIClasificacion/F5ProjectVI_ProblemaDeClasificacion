@@ -75,7 +75,7 @@ F5ProjectVI_ProblemaDeClasificacion/
 
 ## 📊 Métricas del Modelo
 
-La configuración predeterminada reporta las siguientes métricas sobre el conjunto de validación:
+La configuración del modelo reporta las siguientes métricas sobre el conjunto de validación:
 
 | Métrica     | Puntaje |
 |-------------|---------|
@@ -91,9 +91,8 @@ La configuración predeterminada reporta las siguientes métricas sobre el conju
 - `models/satisfaction_model.joblib`: Pipeline completo serializado
 
 ### **Reportes**
-- `reports/metrics.json`: Métricas detalladas del modelo
+- `reports/metrics.json`: métricas de clasificación detalladas y matriz de confusión
 - `reports/classification_report.txt`: Reporte de clasificación completo
-- `reports/confusion_matrix.png`: Matriz de confusión visual
 
 ## 🎨 Tecnologías Utilizadas
 
@@ -141,21 +140,3 @@ El dataset de entrenamiento ubicado en `datasets/train.csv` contiene 103 904 f
 - `satisfaction`: etiqueta objetivo que indica `satisfied` o `neutral or dissatisfied`.
 
 Para entrenar el modelo se eliminan las columnas no predictivas `Unnamed: 0` e `id`, se imputan los retrasos faltantes con la mediana y se aplica codificación one-hot a los atributos categóricos.
-
-## Resumen de evaluación
-
-La configuración predeterminada divide los datos 80/20 (estratificada) y reporta las siguientes métricas sobre el conjunto de validación:
-
-| Métrica     | Puntaje |
-|-------------|---------|
-| Exactitud   | 0.9635 |
-| Precisión   | 0.9697 |
-| Recall      | 0.9454 |
-| F1-score    | 0.9574 |
-| ROC AUC     | 0.9943 |
-
-Las métricas de clasificación detalladas y la matriz de confusión se almacenan en `reports/metrics.json`.
-
-- `models/satisfaction_model.joblib`: pipeline de scikit-learn serializado para inferencia.
-- `reports/metrics.json`: archivo JSON con los resultados de evaluación (exactitud, precisión, recall, F1, ROC AUC, informe de clasificación, matriz de confusión).
-
