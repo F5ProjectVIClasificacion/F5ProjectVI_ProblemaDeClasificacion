@@ -130,12 +130,6 @@ La configuración predeterminada reporta las siguientes métricas sobre el conju
 - 🔄 **Próximo**: Sistema de monitoreo para producción
 - 🔄 **Próximo**: Tests automatizados para CI/CD
 
-## 📚 Documentación Adicional
-
-- [Guía Backend Completa](GUIA_BACKEND_COMPLETA.md)
-- [Guía de Implementación Backend](GUIA_IMPLEMENTACION_BACKEND.md)
-- [Guía Frontend](GUIA_FRONTEND.md)
-
 ---
 
 ## Columnas del conjunto de datos
