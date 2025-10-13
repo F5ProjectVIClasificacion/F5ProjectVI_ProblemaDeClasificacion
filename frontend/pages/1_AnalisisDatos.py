@@ -4,6 +4,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.figure_factory as ff
 import os
+import json
 
 # --- Configuración de la Página ---
 st.set_page_config(page_title="Análisis de Datos", page_icon="📊", layout="wide")
@@ -21,7 +22,6 @@ def load_model_metrics():
     try:
         metrics_path = os.path.join("reports", "metrics.json")
         with open(metrics_path, 'r') as f:
-            import json
             metrics = json.load(f)
         return metrics
     except FileNotFoundError:
