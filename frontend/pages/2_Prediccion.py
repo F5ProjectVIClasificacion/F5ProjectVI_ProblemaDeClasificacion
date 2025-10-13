@@ -79,25 +79,6 @@ with c4:
 
 # ALTERNATIVA CON st.tabs (borrar el if False y tabular hacia atras)
 # ...existing code...
-if False:
-    tab1, tab2, tab3, tab4 = st.tabs(["Datos Personales", "Detalles del Vuelo", "Retrasos", "Calificaciones"])
-
-    with tab1:
-        gender = st.selectbox('Género', ('Female', 'Male'))
-        customer_type = st.selectbox('Tipo de Cliente', ('Loyal Customer', 'disloyal Customer'))
-        age = st.slider('Edad', 1, 100, 40)
-
-    with tab2:
-        type_of_travel = st.selectbox('Tipo de Viaje', ('Business travel', 'Personal Travel'))
-        flight_class = st.selectbox('Clase de Vuelo', ('Business', 'Eco', 'Eco Plus'), key='flight_class')
-        flight_distance = st.slider('Distancia de Vuelo (km)', 0, 5000, 1200)
-
-    with tab3:
-        departure_delay_in_minutes = st.number_input('Retraso en Salida', min_value=0, value=0)
-        arrival_delay_in_minutes = st.number_input('Retraso en Llegada', min_value=0, value=0)
-
-    with tab4:
-        inflight_wifi_service = st.slider('Wifi a bordo', 0, 5, 3)
         departure_arrival_time_convenient = st.slider('Horario Salida/Llegada', 0, 5, 3)
         ease_of_online_booking = st.slider('Reserva Online', 0, 5, 3)
         gate_location = st.slider('Ubicación Puerta', 0, 5, 3)
