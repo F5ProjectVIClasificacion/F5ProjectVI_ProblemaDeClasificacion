@@ -55,7 +55,7 @@ services:
       - ./reports:/app/reports
     environment:
       - PYTHONPATH=/app
-    command: python src/train_model.py
+    command: python backend/train_model.py
     #Services assigned to a named profile don’t start when you run docker compose up
     #unless you explicitly opt into that profile, which keeps everyday backend/frontend
     #usage lightweight. When you do need to retrain, launch it with the profile enabled:

@@ -246,7 +246,7 @@ def main():
         print(
             "   - Asegúrate de que el backend esté ejecutándose: python start_backend.py"
         )
-        print("   - Verifica que el modelo esté entrenado: python src/train_model.py")
+        print("   - Verifica que el modelo esté entrenado: python backend/train_model.py")
         print("   - Revisa que no haya errores en los logs del backend")
 
 

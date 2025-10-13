@@ -16,7 +16,7 @@ import os
 project_root = Path(__file__).parent.parent
 sys.path.append(str(project_root))
 
-from src.train_model import load_model, make_prediction
+from backend.train_model import load_model, make_prediction
 from backend.models import PassengerData, PredictionResponse, ModelMetrics
 
 # Variables globales para el modelo

@@ -48,7 +48,7 @@ con el modelo entrenado (ya hay un fichero "satisfaction_model.joblib" en la car
 
 ```bash
 # Construir e iniciar todos los servicios
-docker-compose up
+docker-compose up --build
 
 # Acceder a la aplicación desde tu navegador:
 # http://localhost:8501

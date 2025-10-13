@@ -138,7 +138,7 @@ if df is not None:
     # Mostrar el código específico utilizado
     st.subheader("📁 Archivo de Entrenamiento")
     st.code("""
-    # Ubicación: src/train_model.py
+    # Ubicación: backend/train_model.py
     # Función: build_pipeline()
 
     model = RandomForestClassifier(
@@ -154,7 +154,7 @@ if df is not None:
 
     with col1:
         st.subheader("⚙️ Parámetros Específicos")
-        st.write("**Archivo fuente:** `src/train_model.py`")
+        st.write("**Archivo fuente:** `backend/train_model.py`")
         st.write("**Función:** `build_pipeline()` - línea 136")
         st.write("**Árboles:** 300 (n_estimators=300)")
         st.write("**Estado aleatorio:** 42 (reproducible)")
@@ -188,13 +188,11 @@ if df is not None:
     🔸 **Resultado:** Modelo guardado en `models/satisfaction_model.joblib`
     """)
 
-    st.info("💡 **Implementación específica:** El modelo se entrena ejecutando `python src/train_model.py` y queda disponible para predicciones en tiempo real vía la API FastAPI.")
+    st.info("💡 **Implementación específica:** El modelo se entrena ejecutando `python backend/train_model.py` y queda disponible para predicciones en tiempo real vía la API FastAPI.")
 
     # Gráfico 5: Matriz de Confusión
     st.header("🔢 Matriz de Confusión del Modelo")
     if model_metrics is not None and 'confusion_matrix' in model_metrics:
-        import plotly.figure_factory as ff
-        
         # Preparar datos para la matriz de confusión
         conf_matrix = model_metrics['confusion_matrix']
         labels = ['Neutral/Dissatisfied', 'Satisfied']

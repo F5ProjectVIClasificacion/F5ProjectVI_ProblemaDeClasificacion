@@ -53,7 +53,7 @@ def load_model(model_path: Path = MODEL_PATH) -> Pipeline:
     Esta es la función que usará el frontend.
     """
     if not model_path.exists():
-        raise FileNotFoundError(f"El archivo del modelo no se encontró en {model_path}. Por favor, entrena el modelo primero ejecutando: python src/train_model.py")
+        raise FileNotFoundError(f"El archivo del modelo no se encontró en {model_path}. Por favor, entrena el modelo primero ejecutando: python backend/train_model.py")
     
     pipeline = joblib.load(model_path)
     return pipeline

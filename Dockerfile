@@ -32,4 +32,4 @@ COPY --chown=appuser:appuser . .
 # reduced privileges, hardening the image against escalation attacks
 USER appuser
 
-CMD ["python", "src/train_model.py"]
+CMD ["python", "backend/train_model.py"]
