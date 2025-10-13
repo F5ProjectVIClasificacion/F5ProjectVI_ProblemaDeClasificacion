@@ -22,7 +22,7 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: frontend/Dockerfile
     ports:
       - "8501:8501"
     volumes:
@@ -31,6 +31,8 @@ services:
       - ./datasets:/app/datasets
       - ./models:/app/models
       - ./reports:/app/reports
+    env_file:
+      - frontend/.env
     environment:
       - PYTHONPATH=/app
     #This overrides the container’s default entry point to launch Streamlit,

@@ -7,10 +7,9 @@ ipykernel==6.30.1
 streamlit==1.38.0
 matplotlib==3.9.2
 seaborn==0.13.2
-
-# FastAPI y dependencias para el backend
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
-pydantic==2.9.2
-python-multipart==0.0.6
+plotly==5.24.1
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
+pydantic>=2.9.2
+python-multipart==0.0.9
 requests==2.31.0
