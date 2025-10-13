@@ -3,29 +3,26 @@
 Script de pruebas para la API de FastAPI
 """
 
-import requests
 import json
 import time
 from typing import Dict, Any
 
-API_BASE_URL = "http://localhost:8000"
+import pytest
+import requests
 
+API_BASE_URL = "http://localhost:8000"
 
 def test_health_check():
     """Probar el endpoint de health check"""
     print("🔍 Probando health check...")
     try:
         response = requests.get(f"{API_BASE_URL}/health", timeout=5)
-        if response.status_code == 200:
-            data = response.json()
-            print(f"✅ Health check exitoso: {data}")
-            return True
-        else:
-            print(f"❌ Health check falló: {response.status_code}")
-            return False
+        response.raise_for_status()
+        data = response.json()
+        print(f"✅ Health check exitoso: {data}")
+        assert data.get("status") == "healthy"
     except requests.exceptions.RequestException as e:
-        print(f"❌ Error conectando con la API: {e}")
-        return False
+        pytest.fail(f"❌ Error conectando con la API: {e}")
 
 
 def test_model_info():
@@ -33,16 +30,13 @@ def test_model_info():
     print("🔍 Probando información del modelo...")
     try:
         response = requests.get(f"{API_BASE_URL}/model/info", timeout=10)
-        if response.status_code == 200:
-            data = response.json()
-            print(f"✅ Información del modelo: {json.dumps(data, indent=2)}")
-            return True
-        else:
-            print(f"❌ Error obteniendo información del modelo: {response.status_code}")
-            return False
+        response.raise_for_status()
+        data = response.json()
+        print(f"✅ Información del modelo: {json.dumps(data, indent=2)}")
+        assert data.get("model_loaded") is True
+        assert "features_count" in data
     except requests.exceptions.RequestException as e:
-        print(f"❌ Error: {e}")
-        return False
+        pytest.fail(f"❌ Error: {e}")
 
 
 def test_model_metrics():
@@ -50,21 +44,17 @@ def test_model_metrics():
     print("🔍 Probando métricas del modelo...")
     try:
         response = requests.get(f"{API_BASE_URL}/metrics", timeout=10)
-        if response.status_code == 200:
-            data = response.json()
-            print(f"✅ Métricas del modelo:")
-            for metric, value in data.items():
-                if isinstance(value, float):
-                    print(f"   {metric}: {value:.4f}")
-                else:
-                    print(f"   {metric}: {value}")
-            return True
-        else:
-            print(f"❌ Error obteniendo métricas: {response.status_code}")
-            return False
+        response.raise_for_status()
+        data = response.json()
+        print(f"✅ Métricas del modelo:")
+        for metric, value in data.items():
+            if isinstance(value, float):
+                print(f"   {metric}: {value:.4f}")
+            else:
+                print(f"   {metric}: {value}")
+        assert "accuracy" in data
     except requests.exceptions.RequestException as e:
-        print(f"❌ Error: {e}")
-        return False
+        pytest.fail(f"❌ Error: {e}")
 
 
 def test_prediction():
@@ -99,24 +89,21 @@ def test_prediction():
 
     try:
         response = requests.post(f"{API_BASE_URL}/predict", json=test_data, timeout=10)
-
-        if response.status_code == 200:
-            data = response.json()
-            print(f"✅ Predicción exitosa:")
-            print(f"   Predicción: {data['prediction']}")
-            if data.get("satisfaction_probability"):
-                print(
-                    f"   Probabilidad de satisfacción: {data['satisfaction_probability']:.2%}"
-                )
-            print(f"   Nivel de confianza: {data['confidence_level']}")
-            return True
-        else:
-            print(f"❌ Error en predicción: {response.status_code}")
-            print(f"   Respuesta: {response.text}")
-            return False
+        response.raise_for_status()
+        data = response.json()
+        print(f"✅ Predicción exitosa:")
+        print(f"   Predicción: {data['prediction']}")
+        if data.get("satisfaction_probability") is not None:
+            print(
+                f"   Probabilidad de satisfacción: {data['satisfaction_probability']:.2%}"
+            )
+        print(f"   Nivel de confianza: {data['confidence_level']}")
+        assert data["prediction"] in {
+            "satisfied",
+            "neutral or dissatisfied",
+        }
     except requests.exceptions.RequestException as e:
-        print(f"❌ Error: {e}")
-        return False
+        pytest.fail(f"❌ Error: {e}")
 
 
 def test_multiple_predictions():
@@ -187,19 +174,18 @@ def test_multiple_predictions():
             response = requests.post(
                 f"{API_BASE_URL}/predict", json=test_case["data"], timeout=10
             )
-
-            if response.status_code == 200:
-                data = response.json()
-                print(f"   ✅ {test_case['name']}: {data['prediction']}")
-                results.append(True)
-            else:
-                print(f"   ❌ {test_case['name']}: Error {response.status_code}")
-                results.append(False)
+            response.raise_for_status()
+            data = response.json()
+            print(f"   ✅ {test_case['name']}: {data['prediction']}")
+            results.append(data["prediction"] in {
+                "satisfied",
+                "neutral or dissatisfied",
+            })
         except requests.exceptions.RequestException as e:
             print(f"   ❌ {test_case['name']}: {e}")
             results.append(False)
 
-    return all(results)
+    assert all(results), "Una o más predicciones fallaron"
 
 
 def main():
