@@ -11,7 +11,7 @@ st.set_page_config(
     layout="centered"
 )
 # Titulo de la app
-st.title ("Welcome to Satisfaction Matrix")
+st.title("Welcome to Satisfaction Matrix")
 
 # Barra lateral con instrucciones
 st.sidebar.success("Selecciona una de las páginas de arriba para comenzar.")
