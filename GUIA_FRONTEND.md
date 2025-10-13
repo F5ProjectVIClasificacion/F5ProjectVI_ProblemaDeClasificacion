@@ -20,24 +20,6 @@ frontend/
 └── 📄 .env                     # Variables de entorno
 ```
 
-## 🚀 Inicio Rápido
-
-### **Con Docker (Recomendado)**
-```bash
-# Desde la raíz del proyecto
-docker-compose up
-
-# Acceder a:
-# Frontend: http://localhost:8501
-# Backend:  http://localhost:8000
-```
-
-### **Desarrollo Local**
-```bash
-cd frontend/
-streamlit run app.py --server.port 8501 --server.address 0.0.0.0
-```
-
 ## 📱 Descripción de Páginas
 
 ### **🏠 Página Principal (`app.py`)**
@@ -99,12 +81,6 @@ streamlit run app.py --server.port 8501 --server.address 0.0.0.0
 ✅ Timeouts configurables
 ```
 
-### **Variables de Entorno**
-```env
-# frontend/.env
-API_BASE_URL=http://backend:8000
-```
-
 ### **Métodos disponibles**:
 - `health_check()`: Verificar estado del backend
 - `predict_satisfaction(data)`: Realizar predicción
@@ -161,7 +137,6 @@ API_BASE_URL=http://backend:8000
 # Solución:
 1. Verificar que backend esté ejecutándose: docker-compose ps
 2. Revisar logs: docker-compose logs frontend
-3. Confirmar variable de entorno: API_BASE_URL=http://backend:8000
 ```
 
 ### **Error: "Archivo no encontrado"**
@@ -188,66 +163,5 @@ API_BASE_URL=http://backend:8000
 - **Disponibilidad**: 24/7 con Docker
 - **Usuarios concurrentes**: Ilimitado (arquitectura escalable)
 
-### **Métricas del Modelo**
-- **Precisión**: 96.35%
-- **F1-Score**: 95.74%
-- **AUC-ROC**: 99.43%
-- **Tiempo de predicción**: < 100ms
-
-## 🔄 Flujo de Trabajo de Desarrollo
-
-### **Para Nuevas Funcionalidades**
-```bash
-1. Desarrollar en rama feature/nueva-funcionalidad
-2. Probar localmente: streamlit run app.py
-3. Probar integración: docker-compose up
-4. Documentar cambios en esta guía
-5. Crear pull request con descripción detallada
-```
-
-### **Para Deploy**
-```bash
-1. Construir imágenes: docker-compose build
-2. Probar integración completa
-3. Deploy a producción
-4. Verificar logs y métricas
-```
-
-## 📚 Recursos Adicionales
-
-### **Documentación Oficial**
-- [Streamlit Documentation](https://docs.streamlit.io)
-- [FastAPI Documentation](https://fastapi.tiangolo.com)
-- [Docker Documentation](https://docs.docker.com)
-
-### **Dataset Original**
-- [Kaggle: Airline Passenger Satisfaction](https://www.kaggle.com/datasets/teejmahal20/airline-passenger-satisfaction)
-
-## 🎯 Estado Actual
-
-**📅 Fecha**: Octubre 2024
-**🏆 Estado**: Completamente funcional y documentado
-**🔄 Mantenimiento**: Código limpio y mantenible
-**📈 Escalabilidad**: Arquitectura preparada para crecimiento
-
 ---
 
-## 🏆 Logros Implementados
-
-### **Funcionalidades Completadas**
-- ✅ **Interfaz web completa** con 3 páginas funcionales
-- ✅ **Integración perfecta** frontend-backend vía Docker
-- ✅ **Sistema de navegación** fluido e intuitivo
-- ✅ **Análisis visual** profesional del dataset
-- ✅ **Predicciones en tiempo real** con modelo ML
-- ✅ **Configuración robusta** con variables de entorno
-- ✅ **Documentación completa** y profesional
-
-### **Arquitectura Técnica**
-- ✅ **Streamlit multipágina** correctamente configurado
-- ✅ **Cliente API robusto** con manejo de errores
-- ✅ **Configuración Docker** optimizada y segura
-- ✅ **Variables de entorno** flexibles y bien documentadas
-- ✅ **Código modular** y fácilmente mantenible
-
-**¡El frontend está completamente desarrollado, documentado y listo para producción!** 🎉

@@ -35,28 +35,23 @@ Este proyecto entrena un modelo de clasificación supervisada que predice la sat
 - Probabilidad de satisfacción y nivel de confianza
 - Resultados formateados profesionalmente
 
-## 🚀 Inicio Rápido con Docker (Recomendado)
+## 🚀 Ejecutar el Proyecto (con Docker)
 
-### **Opción 1: Usar Docker Compose (Más Fácil)**
+Si el modelo no está entrenado (no ves un fichero "satisfaction_model.joblib" en la carpeta `models/`), ejecuta:
+
 ```bash
-# Construir e iniciar todos los servicios
 cd /ruta/al/proyecto
-docker-compose up
-
-# Acceder a la aplicación:
-# Frontend (Interfaz web): http://localhost:8501
-# Backend (API): http://localhost:8000
+docker compose --profile training up train-model
 ```
 
-### **Opción 2: Docker Individual**
-```bash
-# Construir imágenes
-docker build -f backend/Dockerfile -t airline-backend .
-docker build -f frontend/Dockerfile -t airline-frontend .
+con el modelo entrenado (ya hay un fichero "satisfaction_model.joblib" en la carpeta `models/`), ejecuta:
 
-# Ejecutar servicios
-docker run -p 8000:8000 airline-backend
-docker run -p 8501:8501 airline-frontend
+```bash
+# Construir e iniciar todos los servicios
+docker-compose up
+
+# Acceder a la aplicación desde tu navegador:
+# http://localhost:8501
 ```
 
 ## 📋 Arquitectura del Proyecto
@@ -78,34 +73,6 @@ F5ProjectVI_ProblemaDeClasificacion/
 └── 📁 src/                      # Scripts de entrenamiento
 ```
 
-## 💻 Desarrollo Local
-
-### **Configuración del Entorno**
-```bash
-# Crear entorno virtual
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# o
-venv\Scripts\activate     # Windows
-
-# Instalar dependencias
-pip install -r requirements.txt
-```
-
-### **Entrenar el Modelo**
-```bash
-python src/train_model.py
-```
-
-### **Ejecutar Servicios Individualmente**
-```bash
-# Backend API
-uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
-
-# Frontend Web (nueva terminal)
-streamlit run frontend/app.py --server.port 8501 --server.address 0.0.0.0
-```
-
 ## 📊 Métricas del Modelo
 
 La configuración predeterminada reporta las siguientes métricas sobre el conjunto de validación:
@@ -118,25 +85,9 @@ La configuración predeterminada reporta las siguientes métricas sobre el conju
 | F1-score    | 0.9574 |
 | ROC AUC     | 0.9943 |
 
-## 🔧 Variables de Entorno
-
-### **Frontend (.env)**
-```env
-# URL del backend para conexión Docker
-API_BASE_URL=http://backend:8000
-```
-
-### **Backend (opcional)**
-```env
-# Configuración de la API
-API_HOST=0.0.0.0
-API_PORT=8000
-MODEL_PATH=models/satisfaction_model.joblib
-```
-
 ## 📁 Archivos Generados
 
-### **Modelos**
+### **Modelo**
 - `models/satisfaction_model.joblib`: Pipeline completo serializado
 
 ### **Reportes**
@@ -187,10 +138,6 @@ MODEL_PATH=models/satisfaction_model.joblib
 
 ---
 
-## 🏆 Estado del Proyecto: **COMPLETO Y FUNCIONAL** 🎉
-
-**Aplicación 100% operativa con todas las funcionalidades implementadas y documentadas.**
-
 ## Columnas del conjunto de datos
 
 El dataset de entrenamiento ubicado en `datasets/train.csv` contiene 103 904 filas con los siguientes campos:
@@ -199,45 +146,7 @@ El dataset de entrenamiento ubicado en `datasets/train.csv` contiene 103 904 f
 - `Age`, `Flight Distance`, calificaciones de servicio (wifi, reserva, ubicación de la puerta, comida, embarque, comodidad del asiento, entretenimiento, servicio a bordo, espacio para las piernas, equipaje, check-in, servicio en vuelo, limpieza) y mediciones de retrasos: entradas numéricas en una escala de 0 a 5 o en minutos.
 - `satisfaction`: etiqueta objetivo que indica `satisfied` o `neutral or dissatisfied`.
 
-El script elimina automáticamente las columnas no predictivas `Unnamed: 0` e `id`, imputa los retrasos faltantes con la mediana y aplica codificación one-hot a los atributos categóricos.
-
-## Configuración del entorno
-
-Instala las dependencias listadas en `requirements.txt` (se recomienda un entorno virtual):
-
-```powershell
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-```
-
-## Entrenar el modelo
-
-Ejecuta el pipeline de entrenamiento desde la raíz del repositorio:
-
-```powershell
-.venv\Scripts\python.exe src/train_model.py
-```
-
-Los argumentos opcionales permiten personalizar las rutas de los datos, el modelo y las métricas. Usa `--help` para ver todas las opciones.
-
-## Ejecutar con Docker
-
-Si prefieres aislar el entorno y evitar instalaciones locales, puedes usar la imagen Docker incluida:
-
-```powershell
-docker build -t airline-satisfaction .
-docker run --rm -v ${PWD}\models:/app/models -v ${PWD}\reports:/app/reports airline-satisfaction
-```
-
-El montaje de volúmenes es opcional pero recomendable para conservar el pipeline con el modelo en `models/` y las métricas en `reports/` en el host. Crea las carpetas si aún no existen:
-
-```powershell
-New-Item -ItemType Directory -Force models
-New-Item -ItemType Directory -Force reports
-```
-
-Puedes sobreescribir el comando por defecto agregando argumentos al final de `docker run`, por ejemplo `docker run --rm airline-satisfaction python src/train_model.py`.
+Para entrenar el modelo se eliminan las columnas no predictivas `Unnamed: 0` e `id`, se imputan los retrasos faltantes con la mediana y se aplica codificación one-hot a los atributos categóricos.
 
 ## Resumen de evaluación
 
@@ -253,12 +162,6 @@ La configuración predeterminada divide los datos 80/20 (estratificada) y report
 
 Las métricas de clasificación detalladas y la matriz de confusión se almacenan en `reports/metrics.json`.
 
-## Resultados
-
 - `models/satisfaction_model.joblib`: pipeline de scikit-learn serializado para inferencia.
 - `reports/metrics.json`: archivo JSON con los resultados de evaluación (exactitud, precisión, recall, F1, ROC AUC, informe de clasificación, matriz de confusión).
 
-## Próximos pasos
-
-- Validar el modelo en un conjunto separado o en el split de prueba de Kaggle.
-- Crear scripts de inferencia y monitoreo para puntuar nuevas encuestas de pasajeros en producción.
