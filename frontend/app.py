@@ -13,7 +13,6 @@ st.set_page_config(
 # Titulo de la app
 st.title ("Welcome to Satisfaction Matrix")
 
-
 # Barra lateral con instrucciones
 st.sidebar.success("Selecciona una de las páginas de arriba para comenzar.")
 st.markdown(
@@ -45,8 +44,7 @@ st.markdown(
 
 
     *🚀 Desarrollado con FastAPI + Streamlit | Modelo ML con >96% precisión*
-    """
-      
+    """      
 )
 
 @st.cache_data
@@ -152,8 +150,7 @@ if stats:
             label="Clientes Leales Satisfechos",
             value=f"{stats['loyal_satisfaction']:.1f}%",
             help="Clientes frecuentes que están satisfechos"
-        )
-        
+        )      
 
     
     st.markdown("### 📊 Información Adicional")

@@ -14,6 +14,7 @@ services:
       - ./datasets:/app/datasets
     environment:
       - PYTHONPATH=/app
+    #--reload enables uvicorn server auto-restart whenever source files change (use only for development)
     command: uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
     restart: unless-stopped
 
@@ -34,6 +35,9 @@ services:
       - frontend/.env
     environment:
       - PYTHONPATH=/app
+    #This overrides the container’s default entry point to launch Streamlit,
+    #executing app.py and binding it to port 8501 on all interfaces (0.0.0.0)
+    #so the UI is reachable from outside the container.
     command: streamlit run frontend/app.py --server.port 8501 --server.address 0.0.0.0
     depends_on:
       - backend
@@ -52,5 +56,9 @@ services:
     environment:
       - PYTHONPATH=/app
     command: python src/train_model.py
+    #Services assigned to a named profile don’t start when you run docker compose up
+    #unless you explicitly opt into that profile, which keeps everyday backend/frontend
+    #usage lightweight. When you do need to retrain, launch it with the profile enabled:
+    #"docker compose --profile training up train-model"
     profiles:
       - training

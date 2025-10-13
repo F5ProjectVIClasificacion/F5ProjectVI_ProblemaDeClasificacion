@@ -2,7 +2,7 @@
 
 ## 📋 Resumen del Proyecto
 
-Tu proyecto de **Predicción de Satisfacción de Pasajeros de Aerolíneas** ahora tiene una arquitectura completa con:
+arquitectura completa:
 
 - **🤖 Modelo ML**: Random Forest con 96.35% de precisión
 - **🎨 Frontend**: Streamlit con interfaz interactiva
@@ -351,6 +351,3 @@ Si encuentras problemas:
 3. Verificar modelo: `ls -la models/`
 4. Reinstalar dependencias: `pip install -r requirements.txt`
 
----
-
-¡Tu sistema de predicción de satisfacción de pasajeros está listo! 🎉

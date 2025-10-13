@@ -29,17 +29,12 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 RANDOM_STATE = 42
 TARGET_COLUMN = "satisfaction"
 DROP_COLUMNS = ["Unnamed: 0", "id"]# "Unnamed: 0" and "id" are common artifacts: the former often appears when a CSV file has its index saved as a column, and the latter is typically just a unique identifier that carries no predictive value. Dropping them helps ensure models learn from meaningful features rather than redundant or non-informative columns
+#CATEGORICAL_MAPPINGS is dict[str, dict[str, int]] transforms the target column into a binary representation suitable for scikit-learn estimators that expect numeric targets.
 CATEGORICAL_MAPPINGS = {
     TARGET_COLUMN: {"satisfied": 1, "neutral or dissatisfied": 0},
 }
-
-# #TODO Equipo, revisar si esta bien (modified by KIRU) 
-# --- INICIO DE ADAPTACIÓN ---
 # Mapeo inverso para interpretar las predicciones numéricas del modelo
 INV_CATEGORICAL_MAPPINGS = {v: k for k, v in CATEGORICAL_MAPPINGS[TARGET_COLUMN].items()}
-# --- FIN DE ADAPTACIÓN ---
-
-#CATEGORICAL_MAPPINGS is dict[str, dict[str, int]] transforms the target column into a binary representation suitable for scikit-learn estimators that expect numeric targets.
 PROJECT_ROOT = Path.cwd().resolve()
 if not (PROJECT_ROOT / "datasets").exists():#if this notebook is not run from the project root, move up one level
     PROJECT_ROOT = PROJECT_ROOT.parent
@@ -48,9 +43,8 @@ MODEL_PATH = PROJECT_ROOT / "models/satisfaction_model.joblib"
 METRICS_PATH = PROJECT_ROOT / "reports/metrics.json"
 TEST_SIZE = 0.2
 
-# #TODO Equipo, revisar si esta bien (modified by KIRU) 
 # ==============================================================================
-# FUNCIONES PARA EL FRONTEND (NUEVAS)
+# FUNCIONES PARA EL FRONTEND
 # ==============================================================================
 
 def load_model(model_path: Path = MODEL_PATH) -> Pipeline:
@@ -69,7 +63,7 @@ def make_prediction(pipeline: Pipeline, input_df: pd.DataFrame) -> list[str]:
     Realiza una predicción usando el pipeline cargado.
     Devuelve la etiqueta de texto ('satisfied' o 'neutral or dissatisfied').
     """
-    # El pipeline se encarga de todo el preprocesamiento y la predicción numérica.
+    # El pipeline se encarga de todo el preprocesamiento y la predicción (0 o 1)
     prediction_numeric = pipeline.predict(input_df)
     
     # Se traduce la predicción numérica (0 o 1) a su etiqueta de texto correspondiente.
@@ -77,11 +71,9 @@ def make_prediction(pipeline: Pipeline, input_df: pd.DataFrame) -> list[str]:
     
     return prediction_text
 
-
 # ==============================================================================
-# LÓGICA DE ENTRENAMIENTO (EXISTENTE - SIN CAMBIOS)
+# LÓGICA DE ENTRENAMIENTO 
 # ==============================================================================
-#TODO hasta aqui
 
 def load_data(csv_path: Path) -> pd.DataFrame:
     """Load dataset and perform initial cleaning."""
