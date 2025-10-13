@@ -15,7 +15,7 @@ st.header("Introduce los datos del pasajero:")
 
 # DISEÑO ORIGINAL CON COLUMNAS (comentar if False y tabular hacia atras)
 # if False:
-    # Usamos columnas para un diseño más limpio
+# Usamos columnas para un diseño más limpio
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -58,41 +58,6 @@ with c3:
 with c4:
     inflight_service = st.slider('Servicio en Vuelo', 0, 5, 5)
     cleanliness = st.slider('Limpieza', 0, 5, 5)
-
-
-# ALTERNATIVA CON st.expander (borrar el if False y tabular hacia atras)
-# ...existing code...
-        departure_arrival_time_convenient = st.slider('Horario Salida/Llegada', 0, 5, 3)
-        ease_of_online_booking = st.slider('Reserva Online', 0, 5, 3)
-        gate_location = st.slider('Ubicación Puerta', 0, 5, 3)
-        food_and_drink = st.slider('Comida y Bebida', 0, 5, 3)
-        online_boarding = st.slider('Embarque Online', 0, 5, 3)
-        seat_comfort = st.slider('Comodidad Asiento', 0, 5, 3)
-        inflight_entertainment = st.slider('Entretenimiento', 0, 5, 3)
-        on_board_service = st.slider('Servicio a bordo', 0, 5, 3)
-        leg_room_service = st.slider('Espacio Piernas', 0, 5, 3)
-        baggage_handling = st.slider('Manejo Equipaje', 0, 5, 3)
-        checkin_service = st.slider('Servicio Check-in', 0, 5, 3)
-        inflight_service = st.slider('Servicio en Vuelo', 0, 5, 3)
-        cleanliness = st.slider('Limpieza', 0, 5, 3)
-
-
-# ALTERNATIVA CON st.tabs (borrar el if False y tabular hacia atras)
-# ...existing code...
-        departure_arrival_time_convenient = st.slider('Horario Salida/Llegada', 0, 5, 3)
-        ease_of_online_booking = st.slider('Reserva Online', 0, 5, 3)
-        gate_location = st.slider('Ubicación Puerta', 0, 5, 3)
-        food_and_drink = st.slider('Comida y Bebida', 0, 5, 3)
-        online_boarding = st.slider('Embarque Online', 0, 5, 3)
-        seat_comfort = st.slider('Comodidad Asiento', 0, 5, 3)
-        inflight_entertainment = st.slider('Entretenimiento', 0, 5, 3)
-        on_board_service = st.slider('Servicio a bordo', 0, 5, 3)
-        leg_room_service = st.slider('Espacio Piernas', 0, 5, 3)
-        baggage_handling = st.slider('Manejo Equipaje', 0, 5, 3)
-        checkin_service = st.slider('Servicio Check-in', 0, 5, 3)
-        inflight_service = st.slider('Servicio en Vuelo', 0, 5, 3)
-        cleanliness = st.slider('Limpieza', 0, 5, 3)
-
 
 # --- Creación del Diccionario de Datos ---
 passenger_data = {
